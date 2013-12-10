@@ -8,7 +8,7 @@
 <span style="color:red">♥</span></big>
 <button onclick="javascript:this.parentNode.parentNode.insertBefore(this.parentNode.cloneNode(true),this.parentNode)">Clone</button>
 <button onclick="javascript:this.parentNode.parentNode.removeChild(this.parentNode)">Delete</button>
-<button onclick="javascript:if(this.parentNode.firstChild.nodeName=='TEXTAREA'){this.parentNode.innerHTML=this.parentNode.firstChild.value;}else{this.parentNode.innerHTML='<textarea'+atob('IA==')+'cols=80'+atob('IA==')+'rows=20>'+this.parentNode.innerHTML.replace(/</g,'<')+'</textarea>'+this.parentNode.innerHTML;}">Edit</button>
+<button onclick="javascript:if(this.parentNode.firstChild.nodeName=='TEXTAREA'){this.parentNode.innerHTML=this.parentNode.firstChild.value;}else{this.parentNode.innerHTML='<textarea'+atob('IA==')+'cols=80'+atob('IA==')+'rows=20>'+this.parentNode.innerHTML.replace(/</g,'&'+'lt;')+'</textarea>'+this.parentNode.innerHTML;}">Edit</button>
 <button onclick="javascript:this.parentNode.innerHTML=this.parentNode.innerHTML+'<a'+atob('IA==')+'href=data:text/html;charset=UTF-8,'+encodeURIComponent('<!doctype html>'+atob('Cg==')+'<html><head><html><head><meta'+atob('IA==')+'charset='+atob('Ig==')+'utf-8'+atob('Ig==')+'></head><body><div>'+this.parentNode.innerHTML+'</div></body></html>')+'>Download</a>'">Save</button>
 </div>
 
@@ -22,7 +22,7 @@
 @editNode = (x) -> if x.firstChild.nodeName=='TEXTAREA'
   x.innerHTML=x.firstChild.value
 else
-  x.innerHTML='<textarea cols=80 rows=20>' + x.innerHTML.replace(/</g,'&lt;') + '<' + '/textarea>' + x.innerHTML
+  x.innerHTML='<textarea cols=80 rows=20>' + x.innerHTML.replace(/</g,'&'+'lt;') + '<' + '/textarea>' + x.innerHTML
 @saveNode = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UTF-8,'+encodeURIComponent('<!doctype html>
 <html><head><meta charset="utf-8">
 <style>*{background:black;color:white;}</style></head>
