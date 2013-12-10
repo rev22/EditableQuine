@@ -1,17 +1,20 @@
+<!doctype html>
+<html><head><meta charset="utf-8"></head><body>
+
 <!-- Fully self-contained quine -->
 
-<!doctype html>
-<html><head><meta charset="utf-8"></head><body><div>
+<div>
 <big contenteditable="true">Hel-lo <span style="color:blue">W</span>or-l-d!
 <span style="color:red">♥</span></big>
 <button onclick="javascript:this.parentNode.parentNode.insertBefore(this.parentNode.cloneNode(true),this.parentNode)">Clone</button>
 <button onclick="javascript:this.parentNode.parentNode.removeChild(this.parentNode)">Delete</button>
 <button onclick="javascript:if(this.parentNode.firstChild.nodeName=='TEXTAREA'){this.parentNode.innerHTML=this.parentNode.firstChild.value;}else{this.parentNode.innerHTML='<textarea'+atob('IA==')+'cols=80'+atob('IA==')+'rows=20>'+this.parentNode.innerHTML.replace(/</g,'<')+'</textarea>'+this.parentNode.innerHTML;}">Edit</button>
 <button onclick="javascript:this.parentNode.innerHTML=this.parentNode.innerHTML+'<a'+atob('IA==')+'href=data:text/html;charset=UTF-8,'+encodeURIComponent('<!doctype html>'+atob('Cg==')+'<html><head><html><head><meta'+atob('IA==')+'charset='+atob('Ig==')+'utf-8'+atob('Ig==')+'></head><body><div>'+this.parentNode.innerHTML+'</div></body></html>')+'>Download</a>'">Save</button>
-</div></body></html>
+</div>
 
 <!-- Implemented with CoffeeScript, de-obfuscating the code a bit! -->
 
+<div>
 <script type="text/javascript" src="http://js2coffee.org/scripts/coffeescript.min.js"></script>
 <script type="text/coffeescript">
 @deleteNode = (x) -> x.parentNode.removeChild(x)
@@ -31,3 +34,6 @@ else
 <button onclick="javascript:deleteNode(this.parentNode)">Delete</button>
 <button onclick="javascript:editNode(this.parentNode)">Edit</button>
 <button onclick="javascript:saveNode(this.parentNode)">Save</button>
+</div>
+
+</body></html>
