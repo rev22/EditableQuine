@@ -22,14 +22,14 @@
 @editNode = (x) -> if x.firstChild.nodeName=='TEXTAREA'
   x.innerHTML=x.firstChild.value
 else
-  x.innerHTML='<textarea cols=80 rows=20>' + x.innerHTML.replace(/</g,'<') + '<' + '/textarea>' + x.innerHTML
+  x.innerHTML='<textarea cols=80 rows=20>' + x.innerHTML.replace(/</g,'&lt;') + '<' + '/textarea>' + x.innerHTML
 @saveNode = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UTF-8,'+encodeURIComponent('<!doctype html>
 <html><head><meta charset="utf-8">
 <style>*{background:black;color:white;}</style></head>
 <body><div>'+x.innerHTML+'</div></body></html>')+'>Download</a>'
 </script>
 <span style="font-size:180%" contenteditable="true">Hel·lo <span style="color:blue">W</span>or·l·d!
-<span style="color:red">♥</span><small>(with CoffeeScript)</small></span>
+<span style="color:red">♥</span> <small>(with CoffeeScript)</small></span>
 <button onclick="javascript:duplicateNode(this.parentNode)">Clone</button>
 <button onclick="javascript:deleteNode(this.parentNode)">Delete</button>
 <button onclick="javascript:editNode(this.parentNode)">Edit</button>
