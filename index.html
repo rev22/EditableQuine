@@ -1,8 +1,9 @@
-<div>
+<!doctype html>
+<html><head><meta charset="utf-8"></head><body><div>
 <span contenteditable="true">Hel-lo <span style="color:blue">W</span>or-l-d!
 <span style="color:red">♥</span></span>
 <small onclick="javascript:this.parentNode.parentNode.insertBefore(this.parentNode.cloneNode(true),this.parentNode)">Clone</small>
 <small onclick="javascript:this.parentNode.parentNode.removeChild(this.parentNode)">Delete</small>
 <small onclick="javascript:if(this.parentNode.firstChild.nodeName=='TEXTAREA'){this.parentNode.innerHTML=this.parentNode.firstChild.value;}else{this.parentNode.innerHTML='<textarea>'+this.parentNode.innerHTML.replace(/</g,'<')+'</textarea>'+this.parentNode.innerHTML;}">Edit</small>
-<small onclick="javascript:this.parentNode.innerHTML=this.parentNode.innerHTML+'<a'+atob('IA==')+'href=data:text/html;base64,'+btoa('<div>'+this.parentNode.innerHTML+'</div>')+'>Save this</a>'">Save</small>
-</div>
+<small onclick="javascript:this.parentNode.innerHTML=this.parentNode.innerHTML+'<a'+atob('IA==')+'href=data:text/html;base64,'+btoa('<!doctype html>'+atob('Cg==')+'<html><head><html><head><meta charset="utf-8"></head><body><div>'+this.parentNode.innerHTML+'</div></body></html>')+'>Save this</a>'">Save</small>
+</div></body></html>
