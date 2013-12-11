@@ -36,4 +36,62 @@ else
 <button onclick="javascript:saveNode(this.parentNode)">Save</button>
 </div>
 
+<div></div>
+<script type="text/javascript" src="http://ajaxorg.github.com/ace-builds/textarea/src/ace-bookmarklet.js"></script>
+<script src="http://ajaxorg.github.com/ace-builds/textarea/src/theme-vibrant_ink.js"></script>
+<script src="http://ajaxorg.github.com/ace-builds/textarea/src/mode-coffee.js"></script>
+<script type="text/javascript" src="http://js2coffee.org/scripts/coffeescript.min.js"></script>
+<script type="text/coffeescript">
+@deleteNode = (x) -> x.parentNode.removeChild(x)
+@duplicateNode = (x) -> x.parentNode.insertBefore(x.cloneNode(true),x)
+@editNode = (x) -> if x.firstChild.nodeName=='TEXTAREA'
+  x.innerHTML=x.firstChild.value
+else
+  x.innerHTML='<textarea cols=80 rows=20>' + x.innerHTML.replace(/</g,'&'+'lt;') + '<' + '/textarea>' + x.innerHTML
+  ace = __ace_shadowed__
+  ace.options =
+        mode:             "coffee"
+        theme:            "cobalt"
+        gutter:           "true"
+        fontSize:         "10px"
+        softWrap:         "off"
+        keybindings:      "ace"
+        showPrintMargin:  "true"
+        useSoftTabs:      "true"
+        showInvisibles:   "false"
+  jsload = (src, callback) ->
+    log "Loading #{src}"
+    x = document.createElement('script')
+    x.type = 'text/javascript'
+    x.src = src
+    y = 1
+    x.onload = x.onreadystatechange = () ->
+      if y and not @readyState or @readyState is 'complete'
+        log "Loaded #{src}"
+        y = 0
+        callback()
+    document.getElementsByTagName('head')[0].appendChild x
+  baseUrl = "http://ajaxorg.github.com/ace-builds/textarea/src/"
+  load = window.__ace_loader__ = (path, module, callback) ->
+    jsload baseUrl + path, ->
+      window.__ace_shadowed__.require [module], callback
+  textarea = x.firstChild
+  editor = ace.transformTextarea x.firstChild, load
+  editor.on "blur", -> textarea.value = editor.getValue()
+  editor.setTheme "ace/theme/vibrant_ink"
+  editor.getSession().setMode "ace/mode/coffee"
+  editor.getSession().setTabSize 2
+@saveNode = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UTF-8,'+encodeURIComponent('<!doctype html>
+<html><head><meta charset="utf-8">
+<style>body{background:black;color:white;}</style></head>
+<body><div>'+x.innerHTML+'</div></body></html>')+'>Download</a>'
+</script>
+<span style="font-size:180%" contenteditable="true">Hel·lo <span style="color:blue">W</span>or·l·d!
+<span style="color:red">♥</span> <small>(with CoffeeScript and ACE Editor)</small></span>
+<button onclick="javascript:duplicateNode(this.parentNode)">Clone</button>
+<button onclick="javascript:deleteNode(this.parentNode)">Delete</button>
+<button onclick="javascript:editNode(this.parentNode)">Edit</button>
+<button onclick="javascript:saveNode(this.parentNode)">Save</button>
+</div>
+
 </body></html>
