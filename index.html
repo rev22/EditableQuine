@@ -13,27 +13,41 @@
 </div>
 
 <!-- Implemented with CoffeeScript, de-obfuscating the code a bit! -->
-
 <div>
 <script type="text/javascript" src="http://js2coffee.org/scripts/coffeescript.min.js"></script>
 <script type="text/coffeescript">
-@deleteNode = (x) -> x.parentNode.removeChild(x)
-@duplicateNode = (x) -> x.parentNode.insertBefore(x.cloneNode(true),x)
-@editNode = (x) -> if x.firstChild.nodeName=='TEXTAREA'
+@editableQuine ?= {}
+@editableQuine.k90gxo ?= {}
+id = "editableQuine.k90gxo"
+node = eval id
+uniq = (x) ->
+  do (i = id.replace(/.*[.]/, "")) ->
+    ii = i
+    while true
+      ii = ((Math.random()*0x7fffffff)|0).toString(36)
+      if /^[a-z]/.test ii
+        unless editableQuine[ii]?
+          break
+    a = new Regexp("editableQuine[.]#{i}");
+    b = "editableQuine.#{ii}"
+    x.replace(a, b)
+node.del = (x) -> x.parentNode.removeChild(x)
+node.dup = (x) -> x.parentNode.insertBefore(x.cloneNode(true),x)
+node.mod = (x) -> if x.firstChild.nodeName=='TEXTAREA'
   x.innerHTML=x.firstChild.value
 else
   x.innerHTML='<textarea cols=80 rows=20>' + x.innerHTML.replace(/</g,'&'+'lt;') + '<' + '/textarea>' + x.innerHTML
-@saveNode = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UTF-8,'+encodeURIComponent('<!doctype html>
+node.sav = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UTF-8,'+encodeURIComponent('<!doctype html>
 <html><head><meta charset="utf-8">
 <style>*{background:black;color:white;}</style></head>
 <body><div>'+x.innerHTML+'</div></body></html>')+'>Download</a>'
 </script>
 <span style="font-size:180%" contenteditable="true">Hel·lo <span style="color:blue">W</span>or·l·d!
 <span style="color:red">♥</span> <small>(with CoffeeScript)</small></span>
-<button onclick="javascript:duplicateNode(this.parentNode)">Clone</button>
-<button onclick="javascript:deleteNode(this.parentNode)">Delete</button>
-<button onclick="javascript:editNode(this.parentNode)">Edit</button>
-<button onclick="javascript:saveNode(this.parentNode)">Save</button>
+<button onclick="javascript:editableQuine.k90gxo.dup(this.parentNode)">Clone</button>
+<button onclick="javascript:editableQuine.k90gxo.del(this.parentNode)">Delete</button>
+<button onclick="javascript:editableQuine.k90gxo.mod(this.parentNode)">Edit</button>
+<button onclick="javascript:editableQuine.k90gxo.sav(this.parentNode)">Save</button>
 </div>
 
 <div>
