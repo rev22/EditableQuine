@@ -64,28 +64,31 @@ node.sav = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UT
 <script src="http://ajaxorg.github.com/ace-builds/textarea/src/mode-coffee.js"></script>
 <script type="text/javascript" src="http://js2coffee.org/scripts/coffeescript.min.js"></script>
 <script type="text/coffeescript">
+env = eval "this"
 reportAnyError = (x) ->
   try
     x()
   catch error
     alert(error.toString())
 jsload = (src, callback) ->
-      log "Loading #{src}"
       x = document.createElement('script')
       x.type = 'text/javascript'
       x.src = src
       y = 1
       x.onload = x.onreadystatechange = () ->
         if y and not @readyState or @readyState is 'complete'
-          log "Loaded #{src}"
           y = 0
           callback()
       document.getElementsByTagName('head')[0].appendChild x
+executeInlineCoffeeScript = (node) ->
+  for x in node.getElementsByTagName "script"
+    if x.type == "text/coffeescript"
+      CoffeeScript.run(x.innerHTML);
 install = (node, id, idx) ->
   unless node
     @editableQuine ?= {}
-    @editableQuine.n7kd5d ?= {}
-    idx = "editableQuine.n7kd5d"
+    @editableQuine.fr52cu ?= {}
+    idx = "editableQuine.fr52cu"
     id = idx.replace(/.*[.]/, "")
     node = eval idx
   uniq = (x) ->
@@ -98,7 +101,7 @@ install = (node, id, idx) ->
       a = new RegExp("editableQuine[.]#{id}", "g");
       b = "editableQuine.#{nid}"
       x = x.replace(a, b)
-      install(editableQuine[nid] = {}, nid, b)
+      # install(editableQuine[nid] = {}, nid, b)
       x
   node.del = (x) -> reportAnyError ->
     delete @editableQuine[id]
@@ -107,8 +110,10 @@ install = (node, id, idx) ->
     n = x.cloneNode true
     n.innerHTML = uniq n.innerHTML
     x.parentNode.insertBefore n, x
+    executeInlineCoffeeScript n
   node.mod = (x) -> if x.firstChild.nodeName=='TEXTAREA'
     x.innerHTML=x.firstChild.value
+    executeInlineCoffeeScript x
   else
     x.innerHTML='<textarea cols=80 rows=20>' + x.innerHTML.replace(/</g,'&'+'lt;') + '<' + '/textarea>' + x.innerHTML
     ace = __ace_shadowed__
@@ -141,10 +146,10 @@ reportAnyError ->
 </script>
 <span style="font-size:180%" contenteditable="true">Hel·lo <span style="color:blue">W</span>or·l·d!
 <span style="color:red">♥</span> <small>(with CoffeeScript and ACE Editor)</small></span>
-<button onclick="javascript:editableQuine.n7kd5d.dup(this.parentNode)">Clone</button>
-<button onclick="javascript:editableQuine.n7kd5d.del(this.parentNode)">Delete</button>
-<button onclick="javascript:editableQuine.n7kd5d.mod(this.parentNode)">Edit</button>
-<button onclick="javascript:editableQuine.n7kd5d.sav(this.parentNode)">Save</button>
+<button onclick="javascript:editableQuine.fr52cu.dup(this.parentNode)">Clone</button>
+<button onclick="javascript:editableQuine.fr52cu.del(this.parentNode)">Delete</button>
+<button onclick="javascript:editableQuine.fr52cu.mod(this.parentNode)">Edit</button>
+<button onclick="javascript:editableQuine.fr52cu.sav(this.parentNode)">Save</button>
 </div>
 
 </body></html>
