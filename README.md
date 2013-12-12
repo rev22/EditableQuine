@@ -4,7 +4,4 @@ Different versions have been developed; to experiment, tune into http://rev22.gi
 
 EditableQuine was originally coded by Michele Bini
 
-Unlicense
----------
-
-This software has no copyright and no explicit or implied warranty: please consult UNLICENSE.
+This software has no copyright and no explicit or implied warranty: please consult UNLICENSE.txt.
