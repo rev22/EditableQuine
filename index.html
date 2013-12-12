@@ -56,71 +56,89 @@ node.sav = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UT
 <script src="http://ajaxorg.github.com/ace-builds/textarea/src/mode-coffee.js"></script>
 <script type="text/javascript" src="http://js2coffee.org/scripts/coffeescript.min.js"></script>
 <script type="text/coffeescript">
-@editableQuine ?= {}
-@editableQuine.k90gxo ?= {}
-id = "editableQuine.k90gxo"
-node = eval id
-uniq = (x) ->
-  do (i = id.replace(/.*[.]/, "")) ->
-    ii = i
-    while true
-      ii = ((Math.random()*0x7fffffff)|0).toString(36)
-      if /^[a-z]/.test ii
-        unless editableQuine[ii]?
-          break
-    a = new Regexp("editableQuine[.]#{i}");
-    b = "editableQuine.#{ii}"
-    x.replace(a, b)
-node.del = (x) -> x.parentNode.removeChild(x)
-node.dup = (x) -> x.parentNode.insertBefore(x.cloneNode(true),x)
-node.mod = (x) -> if x.firstChild.nodeName=='TEXTAREA'
-  x.innerHTML=x.firstChild.value
-else
-  x.innerHTML='<textarea cols=80 rows=20>' + x.innerHTML.replace(/</g,'&'+'lt;') + '<' + '/textarea>' + x.innerHTML
-  ace = __ace_shadowed__
-  ace.options =
-        mode:             "coffee"
-        theme:            "cobalt"
-        gutter:           "true"
-        fontSize:         "10px"
-        softWrap:         "off"
-        keybindings:      "ace"
-        showPrintMargin:  "true"
-        useSoftTabs:      "true"
-        showInvisibles:   "false"
-  jsload = (src, callback) ->
-    log "Loading #{src}"
-    x = document.createElement('script')
-    x.type = 'text/javascript'
-    x.src = src
-    y = 1
-    x.onload = x.onreadystatechange = () ->
-      if y and not @readyState or @readyState is 'complete'
-        log "Loaded #{src}"
-        y = 0
-        callback()
-    document.getElementsByTagName('head')[0].appendChild x
-  baseUrl = "http://ajaxorg.github.com/ace-builds/textarea/src/"
-  load = window.__ace_loader__ = (path, module, callback) ->
-    jsload baseUrl + path, ->
-      window.__ace_shadowed__.require [module], callback
-  textarea = x.firstChild
-  editor = ace.transformTextarea x.firstChild, load
-  editor.on "blur", -> textarea.value = editor.getValue()
-  editor.setTheme "ace/theme/vibrant_ink"
-  editor.getSession().setMode "ace/mode/coffee"
-  editor.getSession().setTabSize 2
-node.sav = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UTF-8,'+encodeURIComponent('<!doctype html>
+reportAnyError = (x) ->
+  try
+    x()
+  catch error
+    alert(error.toString())
+jsload = (src, callback) ->
+      log "Loading #{src}"
+      x = document.createElement('script')
+      x.type = 'text/javascript'
+      x.src = src
+      y = 1
+      x.onload = x.onreadystatechange = () ->
+        if y and not @readyState or @readyState is 'complete'
+          log "Loaded #{src}"
+          y = 0
+          callback()
+      document.getElementsByTagName('head')[0].appendChild x
+install = (node, id, idx) ->
+  unless node
+    @editableQuine ?= {}
+    @editableQuine.n7kd5d ?= {}
+    idx = "editableQuine.n7kd5d"
+    id = idx.replace(/.*[.]/, "")
+    node = eval idx
+  uniq = (x) ->
+      nid = id
+      while true
+        nid = ((Math.random()*0x7fffffff)|0).toString(36)
+        if /^[a-z]/.test nid
+          unless editableQuine[nid]?
+            break
+      a = new RegExp("editableQuine[.]#{id}", "g");
+      b = "editableQuine.#{nid}"
+      x = x.replace(a, b)
+      install(editableQuine[nid] = {}, nid, b)
+      x
+  node.uniquifyNamespace = (x) -> reportAnyError ->
+    x.innerHTML = uniq x.innerHTML
+  node.del = (x) -> reportAnyError ->
+    delete @editableQuine[id]
+    x.parentNode.removeChild(x)
+  node.dup = (x) -> reportAnyError ->
+    n = x.cloneNode true
+    n.innerHTML = uniq n.innerHTML
+    x.parentNode.insertBefore n, x
+  node.mod = (x) -> if x.firstChild.nodeName=='TEXTAREA'
+    x.innerHTML=x.firstChild.value
+  else
+    x.innerHTML='<textarea cols=80 rows=20>' + x.innerHTML.replace(/</g,'&'+'lt;') + '<' + '/textarea>' + x.innerHTML
+    ace = __ace_shadowed__
+    ace.options =
+          mode:             "coffee"
+          theme:            "cobalt"
+          gutter:           "true"
+          fontSize:         "10px"
+          softWrap:         "off"
+          keybindings:      "ace"
+          showPrintMargin:  "true"
+          useSoftTabs:      "true"
+          showInvisibles:   "false"
+    baseUrl = "http://ajaxorg.github.com/ace-builds/textarea/src/"
+    load = window.__ace_loader__ = (path, module, callback) ->
+      jsload baseUrl + path, ->
+        window.__ace_shadowed__.require [module], callback
+    textarea = x.firstChild
+    editor = ace.transformTextarea x.firstChild, load
+    editor.on "blur", -> textarea.value = editor.getValue()
+    editor.setTheme "ace/theme/vibrant_ink"
+    editor.getSession().setMode "ace/mode/coffee"
+    editor.getSession().setTabSize 2
+  node.sav = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UTF-8,'+encodeURIComponent('<!doctype html>
 <html><head><meta charset="utf-8">
 <style>body{background:black;color:white;}</style></head>
 <body><div>'+x.innerHTML+'</div></body></html>')+'>Download</a>'
+reportAnyError ->
+  install()
 </script>
 <span style="font-size:180%" contenteditable="true">Hel·lo <span style="color:blue">W</span>or·l·d!
 <span style="color:red">♥</span> <small>(with CoffeeScript and ACE Editor)</small></span>
-<button onclick="javascript:editableQuine.k90gxo.dup(this.parentNode)">Clone</button>
-<button onclick="javascript:editableQuine.k90gxo.del(this.parentNode)">Delete</button>
-<button onclick="javascript:editableQuine.k90gxo.mod(this.parentNode)">Edit</button>
-<button onclick="javascript:editableQuine.k90gxo.sav(this.parentNode)">Save</button>
+<button onclick="javascript:editableQuine.n7kd5d.dup(this.parentNode)">Clone</button>
+<button onclick="javascript:editableQuine.n7kd5d.del(this.parentNode)">Delete</button>
+<button onclick="javascript:editableQuine.n7kd5d.mod(this.parentNode)">Edit</button>
+<button onclick="javascript:editableQuine.n7kd5d.sav(this.parentNode)">Save</button>
 </div>
 
 </body></html>
