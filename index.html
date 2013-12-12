@@ -1,6 +1,13 @@
 <!doctype html>
 <html><head><meta charset="utf-8"></head><body>
 
+<!-- Introduction: -->
+
+<big contenteditable="true"><p>EditableQuine is an HTML component that enables modification of its own code. This can be useful as an educational tool or to experiment with HTML and related Web technologies.</p>
+<p>EditableQuine was originally coded by Michele Bini<br></p>
+<p>This software has no copyright and no explicit or implied warranty: please consult UNLICENSE.</p></big>
+<button onclick="javascript:if(this.parentNode.firstChild.nodeName=='TEXTAREA'){this.parentNode.innerHTML=this.parentNode.firstChild.value;}else{this.parentNode.innerHTML='<textarea'+atob('IA==')+'cols=80'+atob('IA==')+'rows=20>'+this.parentNode.innerHTML.replace(/</g,'&'+'lt;')+'</textarea>'+this.parentNode.innerHTML;}">Edit</button>
+
 <!-- Fully self-contained quine -->
 
 <div>
