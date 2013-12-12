@@ -92,8 +92,6 @@ install = (node, id, idx) ->
       x = x.replace(a, b)
       install(editableQuine[nid] = {}, nid, b)
       x
-  node.uniquifyNamespace = (x) -> reportAnyError ->
-    x.innerHTML = uniq x.innerHTML
   node.del = (x) -> reportAnyError ->
     delete @editableQuine[id]
     x.parentNode.removeChild(x)
