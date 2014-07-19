@@ -59,9 +59,9 @@ node.sav = (x) -> x.innerHTML = x.innerHTML + '<a href=data:text/html;charset=UT
 </div>
 
 <div>
-<script type="text/javascript" src="http://ajaxorg.github.com/ace-builds/textarea/src/ace-bookmarklet.js"></script>
-<script src="http://ajaxorg.github.com/ace-builds/textarea/src/theme-vibrant_ink.js"></script>
-<script src="http://ajaxorg.github.com/ace-builds/textarea/src/mode-coffee.js"></script>
+<script type="text/javascript" src="http://github.com/ajaxorg/ace-builds/raw/3bfda31096cf3f42b77aac64eb788584ea796822/textarea/src/ace-bookmarklet.js"></script>
+<script src="http://github.com/ajaxorg/ace-builds/raw/3bfda31096cf3f42b77aac64eb788584ea796822/textarea/src/theme-vibrant_ink.js"></script>
+<script src="http://github.com/ajaxorg/ace-builds/raw/3bfda31096cf3f42b77aac64eb788584ea796822/textarea/src/mode-coffee.js"></script>
 <script type="text/javascript" src="http://rev22.github.io/reflective-coffeescript/extras/coffee-script.js"></script>
 <script type="text/coffeescript">
 env = eval "this"
@@ -160,7 +160,7 @@ install = (node, id, idx) ->
           showPrintMargin:  "true"
           useSoftTabs:      "true"
           showInvisibles:   "false"
-    baseUrl = "http://ajaxorg.github.com/ace-builds/textarea/src/"
+    baseUrl = "http://github.com/ajaxorg/ace-builds/raw/3bfda31096cf3f42b77aac64eb788584ea796822/textarea/src/"
     load = window.__ace_loader__ = (path, module, callback) ->
       jsload baseUrl + path, ->
         window.__ace_shadowed__.require [module], callback
